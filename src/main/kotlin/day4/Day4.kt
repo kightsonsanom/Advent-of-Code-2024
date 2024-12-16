@@ -1,5 +1,7 @@
 package day4
 
+import utils.Direction
+import utils.Grid
 import java.io.File
 
 
@@ -33,6 +35,32 @@ fun main() {
 
     println("result = $count")
 
+    val chars = data.map { it.map { it.toChar() } }
+    val grid = Grid(chars)
+
+    var xmassamCount = 0
+
+    grid.forEach { point ->
+        if (point.value == 'A') {
+            val firstDiagonal = buildString {
+                append(grid.exploreDirection(point, Direction.NorthWest)?.value)
+                append("A")
+                append(grid.exploreDirection(point, Direction.SouthEast)?.value)
+            }
+
+            val secondDiagonal = buildString {
+                append(grid.exploreDirection(point, Direction.NorthEast)?.value)
+                append("A")
+                append(grid.exploreDirection(point, Direction.SouthWest)?.value)
+            }
+
+            if ((firstDiagonal == "SAM" || firstDiagonal == "MAS") && (secondDiagonal == "SAM" || secondDiagonal == "MAS")) {
+                xmassamCount++
+            }
+        }
+    }
+
+    println("result 2 = $xmassamCount")
 }
 
 fun transformMatrixDiagonally(matrix: List<String>): List<String> {
