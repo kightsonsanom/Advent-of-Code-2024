@@ -5,7 +5,6 @@ import java.io.File
 
 fun main() {
     val data: List<Int> = File("src/main/kotlin/day9/Day11Input.txt").readText().map { it.toString().toInt() }
-    //22334
 
     val newData: MutableList<String> = data.flatMapIndexed { index, value ->
         if (index % 2 == 0) {
